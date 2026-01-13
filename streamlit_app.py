@@ -454,18 +454,7 @@ WHERE {{
                                 mime="text/csv"
                             )
                         
-                        with col_dl2:
-                            import io
-                            output = io.BytesIO()
-                            with pd.ExcelWriter(output, engine='openpyxl') as writer:
-                                df.to_excel(writer, index=False, sheet_name='Résultats')
-                            excel_data = output.getvalue()
-                            st.download_button(
-                                label="📥 Télécharger Excel",
-                                data=excel_data,
-                                file_name="resultats_sparql.xlsx",
-                                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                            )
+                        
                     else:
                         st.info("✅ Requête exécutée avec succès, mais aucun résultat trouvé.")
                 
