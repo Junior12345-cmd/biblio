@@ -1,0 +1,303 @@
+@prefix bib: <http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque> a owl:Ontology ;
+    owl:versionIRI <http://www.semanticweb.org/bibliotheque/1.0.0> .
+
+bib:AgentAccueil a owl:Class ;
+    rdfs:subClassOf bib:Employé .
+
+bib:CDAudio a owl:Class ;
+    rdfs:comment "Support multimédia physique contenant des données audio" ;
+    rdfs:subClassOf bib:Document .
+
+bib:DVD a owl:Class ;
+    rdfs:comment "Support multimédia physique contenant des données audio ou vidéo" ;
+    rdfs:subClassOf bib:Document .
+
+bib:EmpruntInterBibliothèque a owl:Class ;
+    rdfs:subClassOf bib:Emprunt .
+
+bib:EmpruntRéservé a owl:Class ;
+    rdfs:subClassOf bib:Emprunt .
+
+bib:Mémoire a owl:Class ;
+    rdfs:comment "Travail de recherche de fin d'études universitaires" ;
+    rdfs:subClassOf bib:Document .
+
+bib:RessourceÉlectronique a owl:Class ;
+    rdfs:comment "Document dématérialisé accessible en ligne ou sur support numérique." ;
+    rdfs:subClassOf bib:Document .
+
+bib:Thèse a owl:Class ;
+    rdfs:comment "Travail de recherche approfondi pour l'obtention d'un doctorat." ;
+    rdfs:subClassOf bib:Document .
+
+bib:aPourAuteur a owl:ObjectProperty ;
+    rdfs:comment "Relation auteur-document" ;
+    rdfs:domain bib:Document ;
+    rdfs:range bib:Auteur .
+
+bib:aPourEmprunt a owl:ObjectProperty ;
+    rdfs:comment "Historique d'emprunt" ;
+    rdfs:domain bib:Utilisateur ;
+    rdfs:range bib:Emprunt .
+
+bib:aPourGestionnaire a owl:ObjectProperty ;
+    rdfs:domain bib:Localisation ;
+    rdfs:range bib:Bibliothécaire ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+bib:aPourRéservation a owl:ObjectProperty ;
+    rdfs:domain bib:Utilisateur ;
+    rdfs:range bib:Réservation .
+
+bib:aPourSujet a owl:ObjectProperty ;
+    rdfs:domain bib:Document ;
+    rdfs:range bib:Sujet .
+
+bib:codeBarre a owl:DatatypeProperty ;
+    rdfs:comment "Identifiant unique physique apposé sur l'exemplaire" ;
+    rdfs:domain bib:Exemplaire ;
+    rdfs:range xsd:string .
+
+bib:concerneExemplaire a owl:ObjectProperty ;
+    rdfs:comment "Quel exemplaire est emprunté" ;
+    rdfs:domain bib:Emprunt ;
+    rdfs:range bib:Exemplaire .
+
+bib:dateAcquisition a owl:DatatypeProperty ;
+    rdfs:comment "Date d'entrée de l'exemplaire dans les collections" ;
+    rdfs:domain bib:Exemplaire ;
+    rdfs:range xsd:dateTime .
+
+bib:dateDébut a owl:DatatypeProperty ;
+    rdfs:comment "Date à laquelle l'emprunt a été effectué." ;
+    rdfs:domain bib:Emprunt ;
+    rdfs:range xsd:dateTime .
+
+bib:datePublication a owl:DatatypeProperty ;
+    rdfs:comment "La date ou l'année de parution de l'ouvrage" ;
+    rdfs:domain bib:Document ;
+    rdfs:range xsd:dateTime .
+
+bib:dateReservation a owl:DatatypeProperty ;
+    rdfs:comment "Date de création de la demande de réservation" ;
+    rdfs:domain bib:Réservation ;
+    rdfs:range xsd:dateTime .
+
+bib:dateRetourEffective a owl:DatatypeProperty ;
+    rdfs:comment "Date réelle de retour du document" ;
+    rdfs:domain bib:Emprunt ;
+    rdfs:range xsd:dateTime .
+
+bib:dateRetourPrévue a owl:DatatypeProperty ;
+    rdfs:comment "Date limite de retour pour éviter les pénalités" ;
+    rdfs:domain bib:Emprunt ;
+    rdfs:range xsd:dateTime .
+
+bib:doi a owl:DatatypeProperty ;
+    rdfs:comment "Digital Object Identifier pour les ressources numériques." ;
+    rdfs:domain bib:Article ;
+    rdfs:range xsd:string .
+
+bib:effectuéPar a owl:ObjectProperty ;
+    rdfs:comment "Qui a fait l'emprunt" ;
+    rdfs:domain bib:Emprunt ;
+    rdfs:range bib:Utilisateur .
+
+bib:email a owl:DatatypeProperty ;
+    rdfs:comment "Adresse de courrier électronique" ;
+    rdfs:domain bib:Personne ;
+    rdfs:range xsd:string .
+
+bib:estEmpruntable a owl:ObjectProperty ;
+    rdfs:domain bib:Exemplaire ;
+    rdfs:range bib:Emprunt ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+bib:estEmpruntéPar a owl:ObjectProperty ;
+    rdfs:comment "Emprunt en cours" ;
+    rdfs:domain bib:Exemplaire ;
+    rdfs:range bib:Utilisateur .
+
+bib:estFourniPar a owl:ObjectProperty ;
+    rdfs:domain bib:Document ;
+    rdfs:range bib:Fournisseur ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+bib:estLocaliséÀ a owl:ObjectProperty ;
+    rdfs:comment "Localisation physique" ;
+    rdfs:domain bib:Exemplaire ;
+    rdfs:range bib:Localisation .
+
+bib:estUneCopieDe a owl:ObjectProperty ;
+    rdfs:comment "Lien exemplaire-document" ;
+    rdfs:domain bib:Exemplaire ;
+    rdfs:range bib:Document .
+
+bib:isbn a owl:DatatypeProperty ;
+    rdfs:comment "Numéro international normalisé du livre (10 ou 13 chiffres)" ;
+    rdfs:domain bib:Livre ;
+    rdfs:range xsd:string .
+
+bib:issn a owl:DatatypeProperty ;
+    rdfs:comment "Numéro international normalisé des publications en série" ;
+    rdfs:domain bib:Revue ;
+    rdfs:range xsd:string .
+
+bib:matricule a owl:DatatypeProperty ;
+    rdfs:comment "Identifiant unique d'abonné ou d'employé" ;
+    rdfs:domain bib:Personne ;
+    rdfs:range xsd:string ;
+    rdfs:subPropertyOf owl:topDataProperty .
+
+bib:new_emprunt_1225ef37 a bib:EmpruntNormal,
+        owl:NamedIndividual ;
+    bib:dateDébut "2026-01-16T00:00:00"^^xsd:dateTime ;
+    bib:dateRetourPrévue "2026-01-23T00:00:00"^^xsd:dateTime .
+
+bib:new_emprunt_eb481615 a bib:EmpruntNormal,
+        owl:NamedIndividual ;
+    bib:concerneExemplaire bib:Exemplaire_001 ;
+    bib:dateDébut "2026-01-16T00:00:00"^^xsd:dateTime ;
+    bib:dateRetourPrévue "2026-01-23T00:00:00"^^xsd:dateTime .
+
+bib:new_livre_8255cd3b a bib:Livre,
+        owl:NamedIndividual ;
+    bib:isbn "adfsefrege" ;
+    bib:nom "adefrggb" ;
+    bib:titre "qwdewfwr" .
+
+bib:new_livre_9c372fa1 a bib:Livre,
+        owl:NamedIndividual ;
+    bib:isbn "adfsefrege" ;
+    bib:nom "adefrggb" ;
+    bib:titre "qwdewfwr" .
+
+bib:nom a owl:DatatypeProperty ;
+    rdfs:comment "Nom complet de l'individu" ;
+    rdfs:domain bib:Personne ;
+    rdfs:range xsd:string .
+
+bib:porteSur a owl:ObjectProperty ;
+    rdfs:domain bib:Réservation ;
+    rdfs:range bib:Document .
+
+bib:titre a owl:DatatypeProperty ;
+    rdfs:comment "Le titre complet de la ressource documentaire." ;
+    rdfs:domain bib:Document ;
+    rdfs:range xsd:string .
+
+bib:état a owl:DatatypeProperty ;
+    rdfs:comment "Condition physique (ex: neuf, bon, abîmé, perdu)." ;
+    rdfs:domain bib:Exemplaire ;
+    rdfs:range xsd:string .
+
+rdfs:comment rdfs:comment "Abonné ou membre de la bibliothèque autorisé à emprunter." .
+
+bib:Article a owl:Class ;
+    rdfs:comment "Texte scientifique ou informatif publié dans une revue ou un recueil" ;
+    rdfs:subClassOf bib:Document .
+
+bib:Bibliothécaire a owl:Class ;
+    rdfs:subClassOf bib:Employé .
+
+bib:Exemplaire_001 a bib:Exemplaire,
+        owl:NamedIndividual ;
+    bib:codeBarre "BAR001" ;
+    bib:estUneCopieDe bib:Les_Miserables ;
+    bib:état "bon" .
+
+bib:Les_Miserables a bib:Livre,
+        owl:NamedIndividual ;
+    bib:aPourAuteur bib:Victor_Hugo ;
+    bib:isbn "978-2-07-036822-8" ;
+    bib:titre "Les Misérables" .
+
+bib:Revue a owl:Class ;
+    rdfs:comment "Publication périodique identifiée par un ISSN." ;
+    rdfs:subClassOf bib:Document .
+
+bib:Sujet a owl:Class ;
+    rdfs:comment "Domaine de connaissance ou catégorie thématique traitée par un document." .
+
+bib:new_emprunt_467dd58e a bib:EmpruntNormal,
+        owl:NamedIndividual ;
+    bib:concerneExemplaire bib:new_exemplaire_84513270 ;
+    bib:dateDébut "2026-01-16T00:00:00"^^xsd:dateTime ;
+    bib:dateRetourEffective "2026-01-16T21:25:50"^^xsd:dateTime ;
+    bib:dateRetourPrévue "2026-01-23T00:00:00"^^xsd:dateTime ;
+    bib:effectuéPar bib:new_utilisateur_0afc4555 .
+
+bib:new_exemplaire_84513270 a bib:Exemplaire,
+        owl:NamedIndividual ;
+    bib:codeBarre "LESJEUNES12" ;
+    bib:dateAcquisition "2026-01-16T00:00:00"^^xsd:dateTime ;
+    bib:estUneCopieDe bib:new_livre_8be06545 ;
+    bib:état "Neuf" .
+
+bib:new_livre_8be06545 a bib:Livre,
+        owl:NamedIndividual ;
+    bib:aPourAuteur bib:Victor_Hugo ;
+    bib:datePublication "2026-01-16T00:00:00"^^xsd:dateTime ;
+    bib:isbn "12121212121213" ;
+    bib:titre "LES JEUNES" .
+
+bib:new_utilisateur_0afc4555 a bib:Utilisateur,
+        owl:NamedIndividual ;
+    bib:aPourEmprunt bib:new_emprunt_467dd58e ;
+    bib:email "rach@gmail.com" ;
+    bib:matricule "RACH112" ;
+    bib:nom "Rachid" .
+
+bib:Auteur a owl:Class ;
+    rdfs:comment "Personne physique ou morale ayant créé ou contribué à un Document" ;
+    rdfs:subClassOf bib:Personne .
+
+bib:Employé a owl:Class ;
+    rdfs:comment "Personnel travaillant pour la bibliothèque (bibliothécaires, agents)." ;
+    rdfs:subClassOf bib:Personne .
+
+bib:Fournisseur a owl:Class ;
+    rdfs:comment "Entité externe fournissant les documents à la bibliothèque." .
+
+bib:Localisation a owl:Class ;
+    rdfs:comment "Emplacement physique" .
+
+bib:Victor_Hugo a bib:Auteur,
+        owl:NamedIndividual ;
+    bib:email "vhugo@exemple.org" ;
+    bib:nom "Victor Hugo" .
+
+bib:EmpruntNormal a owl:Class ;
+    rdfs:subClassOf bib:Emprunt .
+
+bib:Réservation a owl:Class ;
+    rdfs:comment "Demande de mise de côté d'un Document ou d'un Exemplaire pour un futur retrait." .
+
+owl:topObjectProperty rdfs:domain bib:Document ;
+    rdfs:range bib:Fournisseur .
+
+bib:Livre a owl:Class ;
+    rdfs:comment "Ouvrage imprimé ou numérique identifié par un ISBN" ;
+    rdfs:subClassOf bib:Document .
+
+bib:Utilisateur a owl:Class ;
+    rdfs:comment "Personne" ;
+    rdfs:subClassOf bib:Personne .
+
+bib:Personne a owl:Class ;
+    rdfs:comment "Toute entité humaine liée au système de la bibliothèque." .
+
+bib:Emprunt a owl:Class ;
+    rdfs:comment "Transaction enregistrant le prêt d'un Exemplaire à un Utilisateur" .
+
+bib:Exemplaire a owl:Class ;
+    rdfs:comment "Copie physique ou numérique concrète d'un Document, possédant un code-barres." .
+
+bib:Document a owl:Class ;
+    owl:incompatibleWith "Ressource principale de la bibliothèque (œuvre intellectuelle)." .
+

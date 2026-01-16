@@ -1,0 +1,405 @@
+@prefix : <http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix bibliotheque: <http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#> .
+@base <http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque/> .
+
+<http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque> rdf:type owl:Ontology ;
+                                                                    owl:versionIRI <http://www.semanticweb.org/bibliotheque/1.0.0> .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://www.w3.org/2000/01/rdf-schema#comment
+rdfs:comment rdfs:comment "Abonné ou membre de la bibliothèque autorisé à emprunter." .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#aPourAuteur
+bibliotheque:aPourAuteur rdf:type owl:ObjectProperty ;
+                         rdfs:domain bibliotheque:Document ;
+                         rdfs:range bibliotheque:Auteur ;
+                         rdfs:comment "Relation auteur-document" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#aPourEmprunt
+bibliotheque:aPourEmprunt rdf:type owl:ObjectProperty ;
+                          rdfs:domain bibliotheque:Utilisateur ;
+                          rdfs:range bibliotheque:Emprunt ;
+                          rdfs:comment "Historique d'emprunt" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#aPourGestionnaire
+bibliotheque:aPourGestionnaire rdf:type owl:ObjectProperty ;
+                               rdfs:subPropertyOf owl:topObjectProperty ;
+                               rdfs:domain bibliotheque:Localisation ;
+                               rdfs:range bibliotheque:Bibliothécaire .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#aPourRéservation
+bibliotheque:aPourRéservation rdf:type owl:ObjectProperty ;
+                              rdfs:domain bibliotheque:Utilisateur ;
+                              rdfs:range bibliotheque:Réservation .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#aPourSujet
+bibliotheque:aPourSujet rdf:type owl:ObjectProperty ;
+                        rdfs:domain bibliotheque:Document ;
+                        rdfs:range bibliotheque:Sujet .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#concerneExemplaire
+bibliotheque:concerneExemplaire rdf:type owl:ObjectProperty ;
+                                rdfs:domain bibliotheque:Emprunt ;
+                                rdfs:range bibliotheque:Exemplaire ;
+                                rdfs:comment "Quel exemplaire est emprunté" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#effectuéPar
+bibliotheque:effectuéPar rdf:type owl:ObjectProperty ;
+                         rdfs:domain bibliotheque:Emprunt ;
+                         rdfs:range bibliotheque:Utilisateur ;
+                         rdfs:comment "Qui a fait l'emprunt" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#estEmpruntable
+bibliotheque:estEmpruntable rdf:type owl:ObjectProperty ;
+                            rdfs:subPropertyOf owl:topObjectProperty ;
+                            rdfs:domain bibliotheque:Exemplaire ;
+                            rdfs:range bibliotheque:Emprunt .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#estEmpruntéPar
+bibliotheque:estEmpruntéPar rdf:type owl:ObjectProperty ;
+                            rdfs:domain bibliotheque:Exemplaire ;
+                            rdfs:range bibliotheque:Utilisateur ;
+                            rdfs:comment "Emprunt en cours" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#estFourniPar
+bibliotheque:estFourniPar rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf owl:topObjectProperty ;
+                          rdfs:domain bibliotheque:Document ;
+                          rdfs:range bibliotheque:Fournisseur .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#estLocaliséÀ
+bibliotheque:estLocaliséÀ rdf:type owl:ObjectProperty ;
+                          rdfs:domain bibliotheque:Exemplaire ;
+                          rdfs:range bibliotheque:Localisation ;
+                          rdfs:comment "Localisation physique" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#estUneCopieDe
+bibliotheque:estUneCopieDe rdf:type owl:ObjectProperty ;
+                           rdfs:domain bibliotheque:Exemplaire ;
+                           rdfs:range bibliotheque:Document ;
+                           rdfs:comment "Lien exemplaire-document" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#porteSur
+bibliotheque:porteSur rdf:type owl:ObjectProperty ;
+                      rdfs:domain bibliotheque:Réservation ;
+                      rdfs:range bibliotheque:Document .
+
+
+###  http://www.w3.org/2002/07/owl#topObjectProperty
+owl:topObjectProperty rdfs:domain bibliotheque:Document ;
+                      rdfs:range bibliotheque:Fournisseur .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#codeBarre
+bibliotheque:codeBarre rdf:type owl:DatatypeProperty ;
+                       rdfs:domain bibliotheque:Exemplaire ;
+                       rdfs:range xsd:string ;
+                       rdfs:comment "Identifiant unique physique apposé sur l'exemplaire" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#dateAcquisition
+bibliotheque:dateAcquisition rdf:type owl:DatatypeProperty ;
+                             rdfs:domain bibliotheque:Exemplaire ;
+                             rdfs:range xsd:dateTime ;
+                             rdfs:comment "Date d'entrée de l'exemplaire dans les collections" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#dateDébut
+bibliotheque:dateDébut rdf:type owl:DatatypeProperty ;
+                       rdfs:domain bibliotheque:Emprunt ;
+                       rdfs:range xsd:dateTime ;
+                       rdfs:comment "Date à laquelle l'emprunt a été effectué." .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#datePublication
+bibliotheque:datePublication rdf:type owl:DatatypeProperty ;
+                             rdfs:domain bibliotheque:Document ;
+                             rdfs:range xsd:dateTime ;
+                             rdfs:comment "La date ou l'année de parution de l'ouvrage" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#dateReservation
+bibliotheque:dateReservation rdf:type owl:DatatypeProperty ;
+                             rdfs:domain bibliotheque:Réservation ;
+                             rdfs:range xsd:dateTime ;
+                             rdfs:comment "Date de création de la demande de réservation" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#dateRetourEffective
+bibliotheque:dateRetourEffective rdf:type owl:DatatypeProperty ;
+                                 rdfs:domain bibliotheque:Emprunt ;
+                                 rdfs:range xsd:dateTime ;
+                                 rdfs:comment "Date réelle de retour du document" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#dateRetourPrévue
+bibliotheque:dateRetourPrévue rdf:type owl:DatatypeProperty ;
+                              rdfs:domain bibliotheque:Emprunt ;
+                              rdfs:range xsd:dateTime ;
+                              rdfs:comment "Date limite de retour pour éviter les pénalités" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#doi
+bibliotheque:doi rdf:type owl:DatatypeProperty ;
+                 rdfs:domain bibliotheque:Article ;
+                 rdfs:range xsd:string ;
+                 rdfs:comment "Digital Object Identifier pour les ressources numériques." .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#email
+bibliotheque:email rdf:type owl:DatatypeProperty ;
+                   rdfs:domain bibliotheque:Personne ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "Adresse de courrier électronique" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#isbn
+bibliotheque:isbn rdf:type owl:DatatypeProperty ;
+                  rdfs:domain bibliotheque:Livre ;
+                  rdfs:range xsd:string ;
+                  rdfs:comment "Numéro international normalisé du livre (10 ou 13 chiffres)" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#issn
+bibliotheque:issn rdf:type owl:DatatypeProperty ;
+                  rdfs:domain bibliotheque:Revue ;
+                  rdfs:range xsd:string ;
+                  rdfs:comment "Numéro international normalisé des publications en série" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#matricule
+bibliotheque:matricule rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf owl:topDataProperty ;
+                       rdfs:domain bibliotheque:Personne ;
+                       rdfs:range xsd:string ;
+                       rdfs:comment "Identifiant unique d'abonné ou d'employé" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#nom
+bibliotheque:nom rdf:type owl:DatatypeProperty ;
+                 rdfs:domain bibliotheque:Personne ;
+                 rdfs:range xsd:string ;
+                 rdfs:comment "Nom complet de l'individu" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#titre
+bibliotheque:titre rdf:type owl:DatatypeProperty ;
+                   rdfs:domain bibliotheque:Document ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "Le titre complet de la ressource documentaire." .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#état
+bibliotheque:état rdf:type owl:DatatypeProperty ;
+                  rdfs:domain bibliotheque:Exemplaire ;
+                  rdfs:range xsd:string ;
+                  rdfs:comment "Condition physique (ex: neuf, bon, abîmé, perdu)." .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#AgentAccueil
+bibliotheque:AgentAccueil rdf:type owl:Class ;
+                          rdfs:subClassOf bibliotheque:Employé .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#Article
+bibliotheque:Article rdf:type owl:Class ;
+                     rdfs:subClassOf bibliotheque:Document ;
+                     rdfs:comment "Texte scientifique ou informatif publié dans une revue ou un recueil" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#Auteur
+bibliotheque:Auteur rdf:type owl:Class ;
+                    rdfs:subClassOf bibliotheque:Personne ;
+                    rdfs:comment "Personne physique ou morale ayant créé ou contribué à un Document" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#Bibliothécaire
+bibliotheque:Bibliothécaire rdf:type owl:Class ;
+                            rdfs:subClassOf bibliotheque:Employé .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#CDAudio
+bibliotheque:CDAudio rdf:type owl:Class ;
+                     rdfs:subClassOf bibliotheque:Document ;
+                     rdfs:comment "Support multimédia physique contenant des données audio" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#DVD
+bibliotheque:DVD rdf:type owl:Class ;
+                 rdfs:subClassOf bibliotheque:Document ;
+                 rdfs:comment "Support multimédia physique contenant des données audio ou vidéo" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#Document
+bibliotheque:Document rdf:type owl:Class ;
+                      owl:incompatibleWith "Ressource principale de la bibliothèque (œuvre intellectuelle)." .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#Employé
+bibliotheque:Employé rdf:type owl:Class ;
+                     rdfs:subClassOf bibliotheque:Personne ;
+                     rdfs:comment "Personnel travaillant pour la bibliothèque (bibliothécaires, agents)." .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#Emprunt
+bibliotheque:Emprunt rdf:type owl:Class ;
+                     rdfs:comment "Transaction enregistrant le prêt d'un Exemplaire à un Utilisateur" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#EmpruntInterBibliothèque
+bibliotheque:EmpruntInterBibliothèque rdf:type owl:Class ;
+                                      rdfs:subClassOf bibliotheque:Emprunt .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#EmpruntNormal
+bibliotheque:EmpruntNormal rdf:type owl:Class ;
+                           rdfs:subClassOf bibliotheque:Emprunt .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#EmpruntRéservé
+bibliotheque:EmpruntRéservé rdf:type owl:Class ;
+                            rdfs:subClassOf bibliotheque:Emprunt .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#Exemplaire
+bibliotheque:Exemplaire rdf:type owl:Class ;
+                        rdfs:comment "Copie physique ou numérique concrète d'un Document, possédant un code-barres." .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#Fournisseur
+bibliotheque:Fournisseur rdf:type owl:Class ;
+                         rdfs:comment "Entité externe fournissant les documents à la bibliothèque." .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#Livre
+bibliotheque:Livre rdf:type owl:Class ;
+                   rdfs:subClassOf bibliotheque:Document ;
+                   rdfs:comment "Ouvrage imprimé ou numérique identifié par un ISBN" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#Localisation
+bibliotheque:Localisation rdf:type owl:Class ;
+                          rdfs:comment "Emplacement physique" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#Mémoire
+bibliotheque:Mémoire rdf:type owl:Class ;
+                     rdfs:subClassOf bibliotheque:Document ;
+                     rdfs:comment "Travail de recherche de fin d'études universitaires" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#Personne
+bibliotheque:Personne rdf:type owl:Class ;
+                      rdfs:comment "Toute entité humaine liée au système de la bibliothèque." .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#RessourceÉlectronique
+bibliotheque:RessourceÉlectronique rdf:type owl:Class ;
+                                   rdfs:subClassOf bibliotheque:Document ;
+                                   rdfs:comment "Document dématérialisé accessible en ligne ou sur support numérique." .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#Revue
+bibliotheque:Revue rdf:type owl:Class ;
+                   rdfs:subClassOf bibliotheque:Document ;
+                   rdfs:comment "Publication périodique identifiée par un ISSN." .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#Réservation
+bibliotheque:Réservation rdf:type owl:Class ;
+                         rdfs:comment "Demande de mise de côté d'un Document ou d'un Exemplaire pour un futur retrait." .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#Sujet
+bibliotheque:Sujet rdf:type owl:Class ;
+                   rdfs:comment "Domaine de connaissance ou catégorie thématique traitée par un document." .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#Thèse
+bibliotheque:Thèse rdf:type owl:Class ;
+                   rdfs:subClassOf bibliotheque:Document ;
+                   rdfs:comment "Travail de recherche approfondi pour l'obtention d'un doctorat." .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#Utilisateur
+bibliotheque:Utilisateur rdf:type owl:Class ;
+                         rdfs:subClassOf bibliotheque:Personne ;
+                         rdfs:comment "Personne" .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#Exemplaire_001
+bibliotheque:Exemplaire_001 rdf:type owl:NamedIndividual ,
+                                     bibliotheque:Exemplaire ;
+                            bibliotheque:estUneCopieDe bibliotheque:Les_Miserables ;
+                            bibliotheque:codeBarre "BAR001" ;
+                            bibliotheque:état "bon" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#Jean_Dupont
+bibliotheque:Jean_Dupont rdf:type owl:NamedIndividual ,
+                                  bibliotheque:Utilisateur ;
+                         bibliotheque:matricule "U2026-001" ;
+                         bibliotheque:nom "Jean Dupont" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#Les_Miserables
+bibliotheque:Les_Miserables rdf:type owl:NamedIndividual ,
+                                     bibliotheque:Livre ;
+                            bibliotheque:aPourAuteur bibliotheque:Victor_Hugo ;
+                            bibliotheque:isbn "978-2-07-036822-8" ;
+                            bibliotheque:titre "Les Misérables" .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#Resa_01
+bibliotheque:Resa_01 rdf:type owl:NamedIndividual ,
+                              bibliotheque:Réservation ;
+                     bibliotheque:aPourRéservation bibliotheque:Jean_Dupont ;
+                     bibliotheque:porteSur bibliotheque:Les_Miserables ;
+                     bibliotheque:dateReservation "2026-01-14T10:00:00"^^xsd:dateTime .
+
+
+###  http://www.semanticweb.org/junior/ontologies/2026/0/bibliotheque#Victor_Hugo
+bibliotheque:Victor_Hugo rdf:type owl:NamedIndividual ,
+                                  bibliotheque:Auteur ;
+                         bibliotheque:email "vhugo@exemple.org" ;
+                         bibliotheque:nom "Victor Hugo" .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
