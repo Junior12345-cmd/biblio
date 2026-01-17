@@ -1,6 +1,5 @@
-streamlit
-rdflib
-pandas
-matplotlib
-plotly
-cls
+streamlit>=1.28.0
+rdflib>=7.0.0
+pandas>=2.0.0
+matplotlib>=3.7.0
+plotly>=5.17.0
