@@ -61,24 +61,24 @@ def format_uri(uri):
 def get_instances(class_uri):
     return list(g.subjects(RDF.type, class_uri))
 
-# Statistiques dans la sidebar
-st.sidebar.header("📊 Statistiques de l'Ontologie")
+# # Statistiques dans la sidebar
+# st.sidebar.header("📊 Statistiques de l'Ontologie")
 
-# Compter les classes
+# # Compter les classes
 classes = list(g.subjects(RDF.type, OWL.Class))
-st.sidebar.metric("Classes", len(classes))
+# st.sidebar.metric("Classes", len(classes))
 
-# Compter les individus
+# # Compter les individus
 individuals = list(g.subjects(RDF.type, OWL.NamedIndividual))
-st.sidebar.metric("Individus", len(individuals))
+# st.sidebar.metric("Individus", len(individuals))
 
-# Compter les propriétés
+# # Compter les propriétés
 object_props = list(g.subjects(RDF.type, OWL.ObjectProperty))
 data_props = list(g.subjects(RDF.type, OWL.DatatypeProperty))
-st.sidebar.metric("Propriétés", len(object_props) + len(data_props))
+# st.sidebar.metric("Propriétés", len(object_props) + len(data_props))
 
 # Navigation
-st.sidebar.header("🔍 Navigation")
+st.sidebar.header("Navigation")
 tab = st.sidebar.radio(
     "Sélectionnez une section:",
     ["🏠 Tableau de Bord", "📖 Gestion Documents", "👥 Gestion Personnes", 
@@ -151,30 +151,6 @@ if tab == "🏠 Tableau de Bord":
         
         reservations = get_instances(BIB.Réservation)
         st.metric("Réservations", len(reservations))
-    
-    # Actions rapides
-    st.subheader("🚀 Actions Rapides")
-    col1, col2, col3, col4 = st.columns(4)
-    
-    with col1:
-        if st.button("➕ Ajouter un Livre", use_container_width=True):
-            st.session_state['ajouter_entite'] = "Livre"
-            st.rerun()
-    
-    with col2:
-        if st.button("👤 Ajouter un Utilisateur", use_container_width=True):
-            st.session_state['ajouter_entite'] = "Utilisateur"
-            st.rerun()
-    
-    with col3:
-        if st.button("📚 Nouvel Emprunt", use_container_width=True):
-            st.session_state['ajouter_entite'] = "Emprunt"
-            st.rerun()
-    
-    with col4:
-        if st.button("📝 Nouvelle Réservation", use_container_width=True):
-            st.session_state['ajouter_entite'] = "Réservation"
-            st.rerun()
 
 # Gestion Documents
 elif tab == "📖 Gestion Documents":
@@ -1328,4 +1304,4 @@ if 'modifier_personne' in st.session_state:
 
 # Footer
 st.markdown("---")
-st.markdown("📚 **Bibliothèque Intelligente** - Système de Gestion Ontologique • Développé avec Streamlit")
+st.markdown("**Bibliothèque Intelligente** - Système de Gestion Ontologique • Développé avec Streamlit")

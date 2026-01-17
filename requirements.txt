@@ -3,3 +3,4 @@ rdflib
 pandas
 matplotlib
 plotly
+cls
