@@ -14,7 +14,7 @@ st.set_page_config(
 
 # Titre principal
 st.title("📚 Système de Gestion Dynamique de Bibliothèque")
-st.markdown("### Gestion Complète de l'Ontologie Bibliothèque")
+# st.markdown("### Gestion Complète de l'Ontologie Bibliothèque")
 
 # Initialisation du graph RDF
 @st.cache_resource
@@ -81,9 +81,9 @@ data_props = list(g.subjects(RDF.type, OWL.DatatypeProperty))
 st.sidebar.header("Navigation")
 tab = st.sidebar.radio(
     "Sélectionnez une section:",
-    ["🏠 Tableau de Bord", "📖 Gestion Documents", "👥 Gestion Personnes", 
+    ["📘 Instructions", "🏠 Tableau de Bord", "📖 Gestion Documents", "👥 Gestion Personnes", 
      "📋 Gestion Emprunts", "📝 Gestion Réservations", "➕ Ajouter Entités", 
-     "🔗 Exploration Relations", "⚙️ Structure Ontologique"]
+     "🔗 Exploration Relations", "⚙️ Structure Ontologique"] 
 )
 
 # Tableau de Bord
@@ -1295,6 +1295,379 @@ elif tab == "⚙️ Structure Ontologique":
                 mime="text/plain"
             )
 
+# Instructions
+elif tab == "📘 Instructions":
+    st.header("📘 Guide d'Utilisation de la Plateforme")
+    
+    st.markdown("""
+    ## Bienvenue dans le Système de Gestion de Bibliothèque Ontologique
+    
+    Cette plateforme vous permet de gérer une bibliothèque intelligente basée sur une ontologie RDF.
+    Voici comment utiliser chaque section :
+    """)
+    
+    # Table des matières
+    with st.expander("📋 **Table des Matières**", expanded=True):
+        st.markdown("""
+        1. [🏠 Tableau de Bord](#tableau-de-bord)
+        2. [📖 Gestion des Documents](#gestion-des-documents)
+        3. [👥 Gestion des Personnes](#gestion-des-personnes)
+        4. [📋 Gestion des Emprunts](#gestion-des-emprunts)
+        5. [📝 Gestion des Réservations](#gestion-des-réservations)
+        6. [➕ Ajouter des Entités](#ajouter-des-entités)
+        7. [🔗 Exploration des Relations](#exploration-des-relations)
+        8. [⚙️ Structure Ontologique](#structure-ontologique)
+        9. [💾 Sauvegarde et Export](#sauvegarde-et-export)
+        10. [🚨 Dépannage](#dépannage)
+        """)
+    
+    # Section 1: Tableau de Bord
+    st.markdown("---")
+    st.markdown('<a name="tableau-de-bord"></a>', unsafe_allow_html=True)
+    st.subheader("🏠 Tableau de Bord")
+    col1, col2 = st.columns([2, 1])
+    with col1:
+        st.markdown("""
+        **Fonction :** Vue d'ensemble de la bibliothèque
+        
+        **Ce que vous pouvez voir :**
+        - 📊 Statistiques générales (documents, personnes, exemplaires)
+        - 📈 Graphiques de répartition par type
+        - 🔢 Nombre d'emprunts actifs et réservations
+        
+        **Actions possibles :**
+        - Aucune modification, seulement visualisation
+        - Les graphiques sont interactifs (zoom, survol)
+        """)
+    with col2:
+        st.info("💡 **Astuce :** Utilisez cette section pour un suivi rapide de l'état de votre bibliothèque.")
+    
+    # Section 2: Gestion Documents
+    st.markdown("---")
+    st.markdown('<a name="gestion-des-documents"></a>', unsafe_allow_html=True)
+    st.subheader("📖 Gestion des Documents")
+    col1, col2 = st.columns([2, 1])
+    with col1:
+        st.markdown("""
+        **Fonction :** Gérer tous les types de documents
+        
+        **Fonctionnalités :**
+        - 🔍 Rechercher par titre, auteur ou identifiant
+        - 🏷️ Filtrer par type (Livres, Revues, Articles, etc.)
+        - 👁️ Voir les détails complets d'un document
+        - 📋 Lister les exemplaires avec leur statut
+        - 🗑️ Supprimer ou ✏️ modifier un document
+        
+        **Types de documents :**
+        - Livre (avec ISBN)
+        - Revue (avec ISSN)
+        - Article (avec DOI)
+        - DVD, CD Audio
+        - Thèse, Mémoire
+        """)
+    with col2:
+        st.warning("⚠️ **Attention :** La suppression d'un document supprime aussi tous ses exemplaires associés.")
+    
+    # Section 3: Gestion Personnes
+    st.markdown("---")
+    st.markdown('<a name="gestion-des-personnes"></a>', unsafe_allow_html=True)
+    st.subheader("👥 Gestion des Personnes")
+    st.markdown("""
+    **Fonction :** Gérer les utilisateurs, employés et auteurs
+    
+    **Catégories disponibles :**
+    
+    | Type | Description | Actions possibles |
+    |------|-------------|-------------------|
+    | **Utilisateur** | Emprunteurs de documents | Voir emprunts en cours, modifier, supprimer |
+    | **Bibliothécaire** | Personnel de bibliothèque | Gérer les emprunts, modifier informations |
+    | **Agent d'Accueil** | Personnel d'accueil | Modifier informations |
+    | **Auteur** | Créateurs de documents | Associer à des documents, modifier |
+    
+    **Fonctionnalités :**
+    - 🔍 Recherche par nom
+    - 📋 Filtrage par type de personne
+    - 📖 Visualisation des emprunts en cours (pour utilisateurs)
+    """)
+    
+    # Section 4: Gestion Emprunts
+    st.markdown("---")
+    st.markdown('<a name="gestion-des-emprunts"></a>', unsafe_allow_html=True)
+    st.subheader("📋 Gestion des Emprunts")
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("""
+        **Types d'emprunts :**
+        - 🟢 **Normal** : Emprunt standard
+        - 🔵 **Réservé** : Emprunt suite à réservation
+        - 🟣 **Inter-bibliothèque** : Prêt entre bibliothèques
+        
+        **Statuts visuels :**
+        - 🟢 **En cours** : Emprunt actif dans les délais
+        - 🔴 **En retard** : Date de retour dépassée
+        - ✅ **Retourné** : Emprunt terminé
+        """)
+    with col2:
+        st.markdown("""
+        **Fonctionnalités :**
+        - 📊 Statistiques en temps réel
+        - 📅 Tri automatique par date de retour
+        - ✅ Enregistrement des retours
+        - 📋 Détails complets de chaque emprunt
+        
+        **Processus de retour :**
+        1. Sélectionnez l'emprunt à retourner
+        2. Cliquez sur "✅ Enregistrer le retour"
+        3. Le système met à jour automatiquement
+        """)
+    
+    # Section 5: Gestion Réservations
+    st.markdown("---")
+    st.markdown('<a name="gestion-des-réservations"></a>', unsafe_allow_html=True)
+    st.subheader("📝 Gestion des Réservations")
+    st.markdown("""
+    **Fonction :** Gérer les réservations de documents
+    
+    **Informations affichées :**
+    - 👤 Utilisateur ayant réservé
+    - 📖 Document réservé
+    - 📅 Date de réservation
+    
+    **Actions possibles :**
+    - ✅ Convertir une réservation en emprunt
+    - ✏️ Modifier une réservation
+    - 🗑️ Annuler une réservation
+    
+    **Priorités disponibles :**
+    - Normale
+    - Haute
+    - Urgente
+    """)
+    
+    # Section 6: Ajouter Entités
+    st.markdown("---")
+    st.markdown('<a name="ajouter-des-entités"></a>', unsafe_allow_html=True)
+    st.subheader("➕ Ajouter des Entités")
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("""
+        **Types d'entités que vous pouvez ajouter :**
+        
+        **📚 Documents :**
+        - Livre, Revue, Article
+        - DVD, CD Audio
+        - Thèse, Mémoire
+        
+        **👥 Personnes :**
+        - Utilisateur, Auteur
+        - Bibliothécaire, Agent d'Accueil
+        
+        **🔄 Activités :**
+        - Emprunt, Réservation
+        
+        **🏷️ Autres :**
+        - Exemplaire
+        - Fournisseur
+        - Localisation
+        """)
+    with col2:
+        st.markdown("""
+        **Caractéristiques des formulaires :**
+        - ✳️ Champs obligatoires marqués par *
+        - 🔄 Génération automatique d'URI uniques
+        - ✅ Validation des données
+        - 💾 Sauvegarde automatique
+        
+        **Workflow recommandé :**
+        1. Créer d'abord les **Auteurs**
+        2. Puis créer les **Documents**
+        3. Ensuite créer les **Exemplaires**
+        4. Créer les **Utilisateurs**
+        5. Enfin créer les **Emprunts**
+        """)
+    
+    # Section 7: Exploration Relations
+    st.markdown("---")
+    st.markdown('<a name="exploration-des-relations"></a>', unsafe_allow_html=True)
+    st.subheader("🔗 Exploration des Relations")
+    st.markdown("""
+    **Fonction :** Explorer les liens sémantiques entre les entités
+    
+    **Comment ça marche :**
+    1. Sélectionnez une **classe de départ** (ou "Toutes")
+    2. Choisissez une **relation spécifique** (ou "Toutes")
+    3. Cliquez sur "Explorer les relations"
+    
+    **Ce que vous verrez :**
+    - 📊 Tableau des triplets RDF
+    - 🔗 Relations Sujet → Prédicat → Objet
+    - 📈 Statistiques du nombre de relations
+    
+    **Exemples de relations :**
+    - `estUneCopieDe` : Lie un exemplaire à un document
+    - `aPourAuteur` : Lie un document à un auteur
+    - `effectuéPar` : Lie un emprunt à un utilisateur
+    """)
+    
+    # Section 8: Structure Ontologique
+    st.markdown("---")
+    st.markdown('<a name="structure-ontologique"></a>', unsafe_allow_html=True)
+    st.subheader("⚙️ Structure Ontologique")
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("""
+        **Hiérarchie des classes :**
+        - 🌳 Vue arborescente des classes
+        - 📊 Nombre d'instances par classe
+        - 🔍 Navigation par expanders
+        
+        **Classes principales :**
+        ```
+        Document
+        ├── Livre
+        ├── Revue
+        ├── Article
+        └── ...
+        
+        Personne
+        ├── Utilisateur
+        ├── Employé
+        └── Auteur
+        
+        Activité
+        ├── Emprunt
+        └── Réservation
+        ```
+        """)
+    with col2:
+        st.markdown("""
+        **Outils de maintenance :**
+        - 🔄 Vérification de cohérence
+        - 💾 Export de l'ontologie
+        
+        **Formats d'export :**
+        - Turtle (.ttl)
+        - JSON-LD (.jsonld)
+        - RDF/XML (.rdf)
+        
+        **Usage recommandé :**
+        - Exporter régulièrement pour backup
+        - Vérifier la hiérarchie avant d'ajouter des entités
+        """)
+    
+    # Section 9: Sauvegarde et Export
+    st.markdown("---")
+    st.markdown('<a name="sauvegarde-et-export"></a>', unsafe_allow_html=True)
+    st.subheader("💾 Sauvegarde et Export")
+    st.markdown("""
+    **Sauvegarde automatique :**
+    - ✅ Toutes les modifications sont sauvegardées automatiquement
+    - 📁 Fichier : `bibio.ttl` (format Turtle)
+    - 🔄 Pas besoin d'action manuelle
+    
+    **Export manuel :**
+    1. Allez dans **⚙️ Structure Ontologique**
+    2. Cliquez sur **"Exporter l'ontologie"**
+    3. Choisissez le format désiré
+    4. Téléchargez le fichier
+    
+    **Bonnes pratiques :**
+    - Faire un export avant des opérations critiques
+    - Conserver des backups réguliers
+    - Exporter en différents formats pour compatibilité
+    """)
+    
+    # Section 10: Dépannage
+    st.markdown("---")
+    st.markdown('<a name="dépannage"></a>', unsafe_allow_html=True)
+    st.subheader("🚨 Dépannage")
+    
+    with st.expander("❓ **Questions fréquentes**"):
+        st.markdown("""
+        **Q : Mon changement n'apparaît pas ?**
+        R : Cliquez sur le bouton "🔄" en haut à droite ou utilisez F5.
+        
+        **Q : Je ne trouve pas une entité ?**
+        R : Vérifiez les filtres et utilisez la recherche (insensible à la casse).
+        
+        **Q : Erreur lors de l'ajout ?**
+        R : Vérifiez que tous les champs obligatoires (*) sont remplis.
+        
+        **Q : L'application est lente ?**
+        R : Réduisez le nombre d'entités affichées avec les filtres.
+        """)
+    
+    with st.expander("⚠️ **Problèmes courants et solutions**"):
+        st.markdown("""
+        | Problème | Solution |
+        |----------|----------|
+        | Données non affichées | Vérifiez les filtres, rafraîchissez la page |
+        | Erreur de sauvegarde | Vérifiez les permissions du fichier bibio.ttl |
+        | Formulaire ne se soumet pas | Tous les champs * doivent être remplis |
+        | Graphique non mis à jour | Cliquez ailleurs sur la page pour forcer le refresh |
+        | Liste déroulante vide | Créez d'abord les entités nécessaires |
+        """)
+    
+    with st.expander("📞 **Support et Contact**"):
+        st.markdown("""
+        **En cas de problème persistant :**
+        
+        1. **Consultez les logs :**
+           - Ouvrez les outils de développement (F12)
+           - Vérifiez la console pour les erreurs
+        
+        2. **Vérifiez les données :**
+           - Exportez l'ontologie
+           - Ouvrez le fichier dans un éditeur de texte
+        
+        3. **Réinitialisation :**
+           - Supprimez le fichier `bibio.ttl`
+           - Redémarrez l'application
+           - Recréez vos données
+        
+        **Pour rapporter un bug :**
+        - Notez les étapes précises pour reproduire le problème
+        - Capturez d'éventuels messages d'erreur
+        - Indiquez votre navigateur et système d'exploitation
+        """)
+    
+    # Conseils finaux
+    st.markdown("---")
+    st.success("""
+    ### 🎯 Conseils pour une utilisation optimale :
+    
+    1. **Commencez simple** : Ajoutez d'abord quelques entités pour vous familiariser
+    2. **Utilisez les filtres** : Ils accélèrent la navigation dans les grandes listes
+    3. **Faites des backups** : Exportez régulièrement vos données
+    4. **Explorez les relations** : Comprenez comment les entités sont liées
+    5. **Testez le cycle complet** : Créez un document → exemplaire → utilisateur → emprunt → retour
+    
+    **Bonne utilisation de la plateforme !** 📚✨
+    """)
+    
+    # Information système
+    with st.expander("ℹ️ **Informations système**"):
+        import sys, platform
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.write("**Python :**", sys.version.split()[0])
+        with col2:
+            st.write("**Streamlit :**", st.__version__)
+        with col3:
+            st.write("**Système :**", platform.system())
+        
+        # Vérification des packages
+        try:
+            import pandas as pd
+            import plotly.express as px
+            from rdflib import __version__ as rdflib_version
+            st.write("**Pandas :**", pd.__version__)
+            st.write("**Plotly :**", px.__version__)
+            st.write("**RDFlib :**", rdflib_version)
+            st.success("✅ Tous les packages sont correctement installés")
+        except Exception as e:
+            st.error(f"❌ Erreur : {e}")
+            
 # Gestion des sessions pour la modification
 if 'modifier_document' in st.session_state:
     st.sidebar.info("Mode modification document activé")
